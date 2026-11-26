@@ -1,3 +1,4 @@
+# Streamlit Community Cloud installs this manifest with Python 3.12.
 streamlit==1.50.0
 pandas==2.3.3
 numpy==2.2.6
@@ -6,4 +7,5 @@ scipy==1.18.1
 plotly==6.3.1
 matplotlib==3.10.7
 seaborn==0.13.2
+# Used at startup to load the trained model bundle.
 joblib==1.5.2
