@@ -1,15 +1,108 @@
-.stMainBlockContainer {max-width: 1400px; padding-top: 3.4rem;}
-[data-testid="stSidebar"] {border-right: 1px solid #dce5f5;}
-[data-testid="stMetric"] {background: white; border: 1px solid #dde6f5;
-  border-radius: 14px; padding: 1rem; min-width: 0;}
-[data-testid="stMetricValue"] {font-size: clamp(1.25rem, 2vw, 1.9rem); overflow-wrap: anywhere;}
-.edu-hero {background: linear-gradient(115deg,#102248,#2046a0);
-  color: white; border-radius: 22px; padding: clamp(1.4rem,4vw,3rem); margin-bottom: 1.3rem;}
-.edu-hero h1 {color: white; padding: .35rem 0; font-size: clamp(1.75rem,4vw,3rem);}
-.edu-hero p {color:#e5efff; margin-bottom: 0;}
-.edu-brand {font-size:1.3rem; font-weight:750; letter-spacing:.04em; color:#91f1dc;}
-.edu-result {border-left: 6px solid var(--result); background: white; color: var(--result);
-  border-radius: 12px; padding: 1rem 1.4rem; margin: 1rem 0;}
-.edu-result strong {display:block; font-size: 2rem;}
-.edu-footer {border-top:1px solid #dae3f3; padding-top:1rem; margin-top:2rem;
-  color:#455875; font-size:.88rem;}
+.stMainBlockContainer {
+  max-width: 1320px;
+  padding-top: 2.8rem;
+}
+
+[data-testid="stSidebar"] {
+  border-right: 1px solid #d4dfec;
+}
+
+[data-testid="stSidebar"] [role="radiogroup"] {
+  gap: .25rem;
+}
+
+[data-testid="stSidebar"] [role="radiogroup"] > label {
+  padding: .45rem .65rem;
+  border-radius: .6rem;
+}
+
+[data-testid="stSidebar"] [role="radiogroup"] > label:has(input:checked) {
+  background: #d3ece7;
+}
+
+[data-testid="stMetric"], [data-testid="stForm"], [data-testid="stPlotlyChart"] {
+  background: #fff;
+  border: 1px solid #dce5f0;
+  border-radius: 16px;
+  box-shadow: 0 3px 10px #1932530a;
+}
+
+[data-testid="stMetric"] {
+  padding: .9rem 1rem;
+  min-width: 0;
+}
+
+[data-testid="stMetricValue"] {
+  font-size: clamp(1.2rem, 2.4vw, 1.85rem);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+[data-testid="stPlotlyChart"] {
+  padding: .35rem;
+}
+
+.edu-hero {
+  background: radial-gradient(ellipse at top right, #17665f 0%, transparent 59%),
+              linear-gradient(125deg, #182640, #263c63);
+  color: #fff;
+  border-radius: 24px;
+  padding: clamp(1.55rem, 4vw, 3.5rem);
+  margin-bottom: .65rem;
+  box-shadow: 0 14px 30px #1e355e1f;
+}
+
+.edu-hero h1 {
+  color: #fff;
+  max-width: 25ch;
+  padding: .4rem 0 .7rem;
+  line-height: 1.11;
+  font-size: clamp(1.8rem, 4.3vw, 3.5rem);
+}
+
+.edu-hero p {
+  color: #dce9fa;
+  margin-bottom: 0;
+}
+
+.edu-brand {
+  color: #a3f2df;
+  font-size: 1.05rem;
+  font-weight: 750;
+  letter-spacing: .04em;
+}
+
+.edu-result {
+  border: 1px solid #dce5f0;
+  border-left: 6px solid var(--result);
+  background: #fff;
+  background: color-mix(in srgb, var(--result) 7%, white);
+  color: var(--result);
+  border-radius: 14px;
+  padding: 1rem 1.4rem;
+  margin: 1rem 0;
+}
+
+.edu-result strong {
+  display: block;
+  font-size: 2rem;
+}
+
+.edu-footer {
+  border-top: 1px solid #dce5f0;
+  padding-top: 1rem;
+  margin-top: 2rem;
+  color: #4c607d;
+  font-size: .88rem;
+}
+
+@media (max-width: 640px) {
+  .stMainBlockContainer { padding-top: 2rem; }
+  .edu-hero { border-radius: 17px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-testid="stButton"] button, [data-testid="stFormSubmitButton"] button {
+    transition: background-color 140ms, border-color 140ms;
+  }
+}

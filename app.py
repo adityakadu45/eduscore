@@ -9,7 +9,7 @@ import streamlit as st
 from train_model import train
 from utils.data_loader import CLASSES, DATASET, FEATURES, ROOT, TARGET, audit, load_data
 from utils.prediction import predict
-from utils.visualizations import COLORS, categories, plot
+from utils.visualizations import ACCENT, COLORS, categories, plot
 
 TITLE = "Student Academic Performance Prediction Using Machine Learning"
 ARTIFACT = ROOT / "models/best_model.joblib"
@@ -32,7 +32,11 @@ def read_bundle(version):
 
 
 def chart(figure):
-    st.plotly_chart(figure, config={"displaylogo": False})
+    st.plotly_chart(figure, theme=None, config={"displaylogo": False, "scrollZoom": False})
+
+
+def go_to(page):
+    st.session_state.navigation = page
 
 
 def home(frame, bundle):
@@ -40,6 +44,10 @@ def home(frame, bundle):
     <div class="edu-brand">EduScore</div><h1>{TITLE}</h1>
     <p>MCA research project · Aditya Dattatray Kadu · SYMCA15</p></div>""",
                 unsafe_allow_html=True)
+    actions = st.columns(3)
+    for column, label, index in zip(actions, ["Explore the dataset", "Compare models", "Try a prediction"], [1, 3, 4]):
+        column.button(label, on_click=go_to, args=(PAGES[index],),
+                      type="primary" if index == 4 else "secondary", width="stretch")
     for column, label, value in zip(
         st.columns(4), ["Student records", "Input features", "Algorithms", "Performance categories"],
         [len(frame), len(FEATURES), len(bundle["results"]["models"]), frame[TARGET].nunique()],
@@ -49,7 +57,8 @@ def home(frame, bundle):
     left, right = st.columns([3, 2])
     with left:
         st.subheader("Performance distribution")
-        chart(categories(frame))
+        units = st.radio("Show distribution as", ["Students", "Percent"], horizontal=True)
+        chart(categories(frame, share=units == "Percent"))
     with right:
         st.subheader("Selected model")
         st.metric(name, f"{bundle['results']['models'][name]['accuracy']:.2%} test accuracy")
@@ -67,12 +76,19 @@ def explorer(frame):
     left, right = st.columns(2)
     query = left.text_input("Search all columns").strip()
     labels = right.multiselect("Performance categories", CLASSES, default=CLASSES)
-    filtered = frame[frame[TARGET].isin(labels)]
+    attendance_low = float(frame.attendance_percentage.min())
+    attendance_high = float(frame.attendance_percentage.max())
+    attendance = st.slider("Attendance range", attendance_low, attendance_high,
+                           (attendance_low, attendance_high), step=0.1, format="%.1f%%")
+    mask = frame[TARGET].isin(labels)
+    if attendance != (attendance_low, attendance_high):
+        mask &= frame.attendance_percentage.between(*attendance)
+    filtered = frame[mask]
     if query:
         matches = filtered.astype("string").apply(
             lambda col: col.str.contains(query, case=False, regex=False, na=False))
         filtered = filtered[matches.any(axis=1)]
-    st.write(f"{len(filtered)} matching records")
+    st.caption(f"{len(filtered)} of {len(frame)} records match your filters")
     st.dataframe(filtered, hide_index=True)
     st.download_button("Download filtered CSV", filtered.to_csv(index=False).encode(),
                        "eduscore_filtered.csv", "text/csv")
@@ -85,7 +101,8 @@ def explorer(frame):
              f"Disagreements with the paper’s illustrative cutoffs: {quality['threshold_disagreements']}.")
     st.subheader("Descriptive statistics")
     st.dataframe(frame.describe(include="all").T)
-    chart(categories(frame))
+    st.subheader("Matching records by category")
+    chart(categories(filtered))
     st.write("Inputs are " + ", ".join(FEATURES.values()) + ". The target is performance_category. "
              "Student ID identifies records. Final percentage is the observed outcome. Both are excluded from predictors.")
 
@@ -104,12 +121,14 @@ def eda(frame):
         context = dict(color=TARGET, category_orders={TARGET: CLASSES}, color_discrete_map=COLORS,
                        labels={**FEATURES, TARGET: "Performance category",
                                "final_percentage": "Final percentage"})
-        for variable in ("attendance_percentage", "study_hours_per_week", "previous_gpa", "backlogs"):
-            st.subheader(f"{FEATURES[variable]} and final percentage")
-            chart(plot(px.scatter(frame, x=variable, y="final_percentage", opacity=.65, **context)))
-        for variable in ("assignment_score", "internal_marks"):
-            st.subheader(f"{FEATURES[variable]} by category")
-            chart(plot(px.box(frame, x=TARGET, y=variable, points="outliers", **context)))
+        variable = st.selectbox("Metric to explore", ["attendance_percentage", "study_hours_per_week",
+                               "previous_gpa", "backlogs", "assignment_score", "internal_marks"],
+                               format_func=FEATURES.get)
+        if variable in ("assignment_score", "internal_marks"):
+            figure = px.box(frame, x=TARGET, y=variable, points="outliers", **context)
+        else:
+            figure = px.scatter(frame, x=variable, y="final_percentage", opacity=.7, **context)
+        chart(plot(figure))
     with features:
         feature = st.selectbox("Input feature", list(FEATURES), format_func=FEATURES.get)
         chart(plot(px.histogram(frame, x=feature, color=TARGET, barmode="overlay", opacity=.68,
@@ -147,7 +166,7 @@ def evaluation(bundle):
     for tab, (key, label) in zip(st.tabs(list(metrics.values())), metrics.items()):
         with tab:
             fig = px.bar(comparison, x="model", y=key, labels={"model": "Algorithm", key: label},
-                         color_discrete_sequence=["#2856c5"])
+                         color_discrete_sequence=[ACCENT])
             chart(plot(fig.update_yaxes(range=[0, 1], tickformat=".0%")))
     model = st.selectbox("Review an individual model", list(results["models"]))
     scores = pd.DataFrame(results["cross_validation"][model], index=pd.RangeIndex(1, 6, name="Fold"))
@@ -158,7 +177,8 @@ def evaluation(bundle):
         st.subheader("Confusion matrix")
         matrix = results["models"][model]["confusion_matrix"]
         chart(plot(px.imshow(matrix, x=CLASSES, y=CLASSES, text_auto=True,
-                             labels={"x": "Predicted", "y": "Actual"}, color_continuous_scale="Blues")))
+                             labels={"x": "Predicted", "y": "Actual"},
+                             color_continuous_scale=["#edf7f6", "#64b6ac", "#07584f"])))
     with right:
         st.subheader("Classification report")
         report = pd.DataFrame({key: value for key, value in bundle["reports"][model].items()
@@ -171,25 +191,38 @@ def evaluation(bundle):
     st.caption("Error bars show standard deviation across 20 shuffles. Importance describes model sensitivity.")
 
 
+def apply_profile(profile):
+    for key, value in profile.items():
+        st.session_state[f"input_{key}"] = int(value) if key == "backlogs" else float(value)
+    st.session_state.pop("prediction", None)
+
+
 def prediction(frame, bundle):
     st.title(PAGES[4])
     st.caption("Enter a student profile within the observed dataset ranges.")
     ranges = bundle["metadata"]["feature_ranges"]
     medians = frame[list(FEATURES)].median()
-    if st.button("Reset Inputs"):
-        for key in FEATURES:
-            st.session_state.pop(f"input_{key}", None)
-        st.session_state.pop("prediction", None)
-    with st.form("student_profile"):
+    lower = frame[list(FEATURES)].quantile(0.2).to_dict()
+    higher = frame[list(FEATURES)].quantile(0.8).to_dict()
+    lower["backlogs"], higher["backlogs"] = higher["backlogs"], lower["backlogs"]
+    st.caption("Load an example to explore how different inputs affect the prediction.")
+    examples = st.columns(3)
+    for column, label, profile in zip(examples, ["Lower indicators", "Higher indicators", "Reset Inputs"],
+                                      [lower, higher, medians.to_dict()]):
+        column.button(label, on_click=apply_profile, args=(profile,), width="stretch")
+    with st.form("student_profile", border=True):
         columns = st.columns(2)
         values = {}
         for index, (key, label) in enumerate(FEATURES.items()):
             integer = key == "backlogs"
             cast = int if integer else float
             low, high = map(cast, ranges[key])
+            widget_key = f"input_{key}"
+            if widget_key not in st.session_state:
+                st.session_state[widget_key] = cast(medians[key])
             values[key] = columns[index % 2].number_input(
-                label, min_value=low, max_value=high, value=cast(medians[key]),
-                step=1 if integer else 0.1, key=f"input_{key}",
+                label, min_value=low, max_value=high,
+                step=1 if integer else 0.1, key=widget_key,
                 help=f"Observed range: {low:g}–{high:g}.",
             )
         submitted = st.form_submit_button("Predict Performance", type="primary")
@@ -206,7 +239,7 @@ def prediction(frame, bundle):
         st.markdown(f'<div class="edu-result" style="--result:{COLORS[category]}">'
                     f'Predicted performance<strong>{escape(category)}</strong></div>', unsafe_allow_html=True)
         if probabilities:
-            chart(plot(px.bar(x=CLASSES, y=[probabilities[label] for label in CLASSES],
+            chart(plot(px.bar(x=CLASSES, y=[probabilities[label] for label in CLASSES], text_auto=".1%",
                               color=CLASSES, color_discrete_map=COLORS,
                               labels={"x": "Category", "y": "Estimated probability"})
                        .update_layout(showlegend=False).update_yaxes(range=[0, 1], tickformat=".0%")))
@@ -262,7 +295,7 @@ def about(bundle, quality):
 
 
 st.sidebar.title("🎓 EduScore")
-page = st.sidebar.radio("Navigation", PAGES)
+page = st.sidebar.radio("Navigation", PAGES, key="navigation")
 st.sidebar.caption("MCA research project · SYMCA15")
 try:
     frame = read_dataset(DATASET.stat().st_mtime_ns)
