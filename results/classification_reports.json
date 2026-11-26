@@ -1,0 +1,167 @@
+{
+  "Logistic Regression": {
+    "Low": {
+      "precision": 0.8,
+      "recall": 0.3333333333333333,
+      "f1-score": 0.47058823529411764,
+      "support": 12.0
+    },
+    "Medium": {
+      "precision": 0.6956521739130435,
+      "recall": 0.8421052631578947,
+      "f1-score": 0.7619047619047619,
+      "support": 38.0
+    },
+    "High": {
+      "precision": 0.4444444444444444,
+      "recall": 0.4,
+      "f1-score": 0.42105263157894735,
+      "support": 10.0
+    },
+    "accuracy": 0.6666666666666666,
+    "macro avg": {
+      "precision": 0.6466988727858293,
+      "recall": 0.5251461988304094,
+      "f1-score": 0.5511818762592756,
+      "support": 60.0
+    },
+    "weighted avg": {
+      "precision": 0.6746537842190016,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.6468327681949972,
+      "support": 60.0
+    }
+  },
+  "Decision Tree": {
+    "Low": {
+      "precision": 0.5,
+      "recall": 0.16666666666666666,
+      "f1-score": 0.25,
+      "support": 12.0
+    },
+    "Medium": {
+      "precision": 0.6829268292682927,
+      "recall": 0.7368421052631579,
+      "f1-score": 0.7088607594936709,
+      "support": 38.0
+    },
+    "High": {
+      "precision": 0.4,
+      "recall": 0.6,
+      "f1-score": 0.48,
+      "support": 10.0
+    },
+    "accuracy": 0.6,
+    "macro avg": {
+      "precision": 0.5276422764227643,
+      "recall": 0.5011695906432748,
+      "f1-score": 0.479620253164557,
+      "support": 60.0
+    },
+    "weighted avg": {
+      "precision": 0.5991869918699188,
+      "recall": 0.6,
+      "f1-score": 0.5789451476793249,
+      "support": 60.0
+    }
+  },
+  "Random Forest": {
+    "Low": {
+      "precision": 1.0,
+      "recall": 0.16666666666666666,
+      "f1-score": 0.2857142857142857,
+      "support": 12.0
+    },
+    "Medium": {
+      "precision": 0.7,
+      "recall": 0.9210526315789473,
+      "f1-score": 0.7954545454545454,
+      "support": 38.0
+    },
+    "High": {
+      "precision": 0.625,
+      "recall": 0.5,
+      "f1-score": 0.5555555555555556,
+      "support": 10.0
+    },
+    "accuracy": 0.7,
+    "macro avg": {
+      "precision": 0.775,
+      "recall": 0.5292397660818714,
+      "f1-score": 0.5455747955747955,
+      "support": 60.0
+    },
+    "weighted avg": {
+      "precision": 0.7474999999999999,
+      "recall": 0.7,
+      "f1-score": 0.6535233285233286,
+      "support": 60.0
+    }
+  },
+  "SVM": {
+    "Low": {
+      "precision": 1.0,
+      "recall": 0.25,
+      "f1-score": 0.4,
+      "support": 12.0
+    },
+    "Medium": {
+      "precision": 0.6875,
+      "recall": 0.868421052631579,
+      "f1-score": 0.7674418604651163,
+      "support": 38.0
+    },
+    "High": {
+      "precision": 0.4444444444444444,
+      "recall": 0.4,
+      "f1-score": 0.42105263157894735,
+      "support": 10.0
+    },
+    "accuracy": 0.6666666666666666,
+    "macro avg": {
+      "precision": 0.7106481481481483,
+      "recall": 0.506140350877193,
+      "f1-score": 0.5294981640146879,
+      "support": 60.0
+    },
+    "weighted avg": {
+      "precision": 0.7094907407407407,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.6362219502243982,
+      "support": 60.0
+    }
+  },
+  "KNN": {
+    "Low": {
+      "precision": 0.8,
+      "recall": 0.3333333333333333,
+      "f1-score": 0.47058823529411764,
+      "support": 12.0
+    },
+    "Medium": {
+      "precision": 0.6956521739130435,
+      "recall": 0.8421052631578947,
+      "f1-score": 0.7619047619047619,
+      "support": 38.0
+    },
+    "High": {
+      "precision": 0.4444444444444444,
+      "recall": 0.4,
+      "f1-score": 0.42105263157894735,
+      "support": 10.0
+    },
+    "accuracy": 0.6666666666666666,
+    "macro avg": {
+      "precision": 0.6466988727858293,
+      "recall": 0.5251461988304094,
+      "f1-score": 0.5511818762592756,
+      "support": 60.0
+    },
+    "weighted avg": {
+      "precision": 0.6746537842190016,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.6468327681949972,
+      "support": 60.0
+    }
+  }
+}

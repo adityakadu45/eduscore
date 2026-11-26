@@ -1,0 +1,39 @@
+# Local Python environments and generated files
+.venv/
+venv/
+.venv-*/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Credentials and developer settings
+.env
+.env.*
+.streamlit/secrets.toml
+secrets.toml
+.netrc
+*.pem
+*.key
+*.p12
+*.pfx
+.vscode/
+.idea/
+
+# Local deliverables and research references
+/submission/
+/student_academic_performance_300_records.csv
+*.doc
+*.docx
+*.pdf
+*.zip
+*.log
+*.tmp
+Thumbs.db
+.DS_Store

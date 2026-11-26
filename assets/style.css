@@ -1,0 +1,15 @@
+.stMainBlockContainer {max-width: 1400px; padding-top: 3.4rem;}
+[data-testid="stSidebar"] {border-right: 1px solid #dce5f5;}
+[data-testid="stMetric"] {background: white; border: 1px solid #dde6f5;
+  border-radius: 14px; padding: 1rem; min-width: 0;}
+[data-testid="stMetricValue"] {font-size: clamp(1.25rem, 2vw, 1.9rem); overflow-wrap: anywhere;}
+.edu-hero {background: linear-gradient(115deg,#102248,#2046a0);
+  color: white; border-radius: 22px; padding: clamp(1.4rem,4vw,3rem); margin-bottom: 1.3rem;}
+.edu-hero h1 {color: white; padding: .35rem 0; font-size: clamp(1.75rem,4vw,3rem);}
+.edu-hero p {color:#e5efff; margin-bottom: 0;}
+.edu-brand {font-size:1.3rem; font-weight:750; letter-spacing:.04em; color:#91f1dc;}
+.edu-result {border-left: 6px solid var(--result); background: white; color: var(--result);
+  border-radius: 12px; padding: 1rem 1.4rem; margin: 1rem 0;}
+.edu-result strong {display:block; font-size: 2rem;}
+.edu-footer {border-top:1px solid #dae3f3; padding-top:1rem; margin-top:2rem;
+  color:#455875; font-size:.88rem;}

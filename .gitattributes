@@ -1,0 +1,4 @@
+# Preserve the original research data and its recorded SHA-256 in every checkout.
+/dataset/student_performance.csv -text
+*.joblib binary
+*.bat text eol=crlf

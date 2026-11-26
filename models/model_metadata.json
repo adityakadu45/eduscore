@@ -1,0 +1,77 @@
+{
+  "best_model": "Logistic Regression",
+  "selection": "Mean training CV macro F1, then CV accuracy and model name",
+  "features": [
+    "previous_gpa",
+    "attendance_percentage",
+    "study_hours_per_week",
+    "assignment_score",
+    "internal_marks",
+    "backlogs"
+  ],
+  "classes": [
+    "Low",
+    "Medium",
+    "High"
+  ],
+  "feature_ranges": {
+    "previous_gpa": [
+      4.0,
+      9.9
+    ],
+    "attendance_percentage": [
+      45.1,
+      99.9
+    ],
+    "study_hours_per_week": [
+      2.1,
+      35.0
+    ],
+    "assignment_score": [
+      35.2,
+      99.9
+    ],
+    "internal_marks": [
+      12.3,
+      40.0
+    ],
+    "backlogs": [
+      0.0,
+      4.0
+    ]
+  },
+  "train_size": 240,
+  "test_size": 60,
+  "random_state": 42,
+  "train_classes": {
+    "Medium": 153,
+    "Low": 46,
+    "High": 41
+  },
+  "test_classes": {
+    "Medium": 38,
+    "Low": 12,
+    "High": 10
+  },
+  "majority_class": "Medium",
+  "baseline_accuracy": 0.6333333333333333,
+  "dataset_sha256": "bc2c73f4682850cc819c8dd8479b5f4858818e7cc9f65639e7a845f13d962310",
+  "sklearn_version": "1.7.2",
+  "trained_at": "2026-11-26T06:28:04.161438+00:00",
+  "audit": {
+    "missing": {
+      "student_id": 0,
+      "previous_gpa": 0,
+      "attendance_percentage": 0,
+      "study_hours_per_week": 0,
+      "assignment_score": 0,
+      "internal_marks": 0,
+      "backlogs": 0,
+      "final_percentage": 0,
+      "performance_category": 0
+    },
+    "duplicate_rows": 0,
+    "duplicate_ids": 0,
+    "threshold_disagreements": 28
+  }
+}
