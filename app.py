@@ -225,7 +225,9 @@ def prediction(frame, bundle):
         for tip in tips or ["Continue your current study routine and review feedback after each assessment."]:
             st.write(f"• {tip}")
         st.caption("Guidance uses descriptive reference points and has no intervention validation.")
-    st.info("For academic research and decision support. Review predictions alongside other academic evidence.")
+    st.info("For academic demonstration. This model was trained on 300 synthetic records generated "
+            "with ChatGPT. Student IDs are artificial. Predictions demonstrate the workflow and have "
+            "not been validated on real students.")
 
 
 def about(bundle, quality):
@@ -243,13 +245,16 @@ def about(bundle, quality):
         "Research findings": "The report lists preliminary Random Forest accuracy of 68.33%. The IEEE paper "
         "reports 70.00% Random Forest accuracy and 16.67% Low-class recall in its held-out benchmark. "
         "EduScore selects its prediction model using training CV. See Model Training and Evaluation for run results.",
-        "Limitations": f"The dataset is small and imbalanced, with unverified provenance. {quality['threshold_disagreements']} "
-        "supplied labels disagree with the paper’s illustrative thresholds. If the records are synthetic, "
-        "the results demonstrate technical feasibility only. Real-world predictive validity requires external validation.",
-        "Future scope": "Verify data provenance and label rules, collect representative cohorts, evaluate minority "
+        "Dataset provenance": "The project author confirms that he generated all 300 records with ChatGPT "
+        "for his MCA research. The student IDs are artificial and the dataset contains no actual student "
+        "information. The author approved public release for academic demonstration.",
+        "Limitations": f"The dataset is small, imbalanced and synthetic. {quality['threshold_disagreements']} "
+        "supplied labels disagree with the paper’s illustrative thresholds. The results demonstrate "
+        "technical feasibility. Real-world predictive validity requires external validation.",
+        "Future scope": "Document label rules, collect representative cohorts, evaluate minority "
         "class recall and calibration, and test generalization across institutions.",
         "Conclusion": "EduScore demonstrates a reproducible comparison and prediction workflow. "
-        "Class-specific results and data provenance limit practical interpretation.",
+        "Class-specific results and the use of synthetic data limit practical interpretation.",
     }
     for heading, content in sections.items():
         st.subheader(heading)

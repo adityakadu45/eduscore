@@ -10,6 +10,8 @@ EduScore compares five supervised classifiers and demonstrates a six-input predi
 
 ## Dataset and input ranges
 
+Aditya Dattatray Kadu confirms that he generated this dataset with ChatGPT for his MCA research project and approved its public release for academic demonstration. All 300 records and student IDs are artificial. The dataset contains no real student information or confidential academic records. The earlier research documents describe the source as unverified. This provenance statement records the author's subsequent confirmation.
+
 The original 300-row, nine-column CSV is included byte-for-byte as `dataset/student_performance.csv`. It includes 58 Low, 191 Medium and 51 High records. There are zero missing values, exact duplicates and repeated student IDs.
 
 | Input | Observed range accepted by the prediction form |
@@ -76,7 +78,7 @@ If Windows provides Python through `python`, use `python -m venv .venv` in the f
 
 The deployment uses Python 3.12, the root-level `app.py` entry point and the pinned `requirements.txt`. The app loads its data, assets and saved models relative to the project directory. The checked-in dataset, trained pipelines and evaluation results are available on first launch. The app needs no API keys or Streamlit secrets.
 
-The dataset contains row-level academic records with student IDs. Because its provenance is unverified, confirm it is approved for public redistribution before publishing. Dataset Explorer allows visitors to view and download the supplied records.
+Dataset Explorer allows visitors to view and download the synthetic records approved for public academic demonstration.
 
 1. Extract the submission ZIP into a fresh folder. Open a terminal in the folder that contains `app.py`. The extracted project includes the source, data, fitted models, results, tests and hidden configuration folders.
 2. In [GitHub's new repository form](https://github.com/new), create an empty public repository named `eduscore`. Leave the README, license and ignore-file initialization options off. The extracted package already includes a README and ignore rules.
@@ -125,5 +127,5 @@ The four supplied research documents remain in the workspace. The ZIP is a runna
 
 The project report gives preliminary Random Forest accuracy of 68.33%. The IEEE paper presents a separate fixed holdout benchmark with 70.00% Random Forest accuracy and 16.67% Low recall. Both references describe Streamlit as a proposed extension. This implementation adds Streamlit and training-only CV, so the selected prediction pipeline can differ from the held-out accuracy leader.
 
-The dataset is small, imbalanced and of unverified provenance. If synthetic, its results demonstrate technical feasibility only. Real-world predictive validity would require verified labels and testing on independent representative cohorts. Correlation and feature importance describe associations or model behavior. Class probabilities are estimates. Academic suggestions are general guidance for research and decision support.
+The dataset is small, imbalanced and synthetic. Its results demonstrate technical feasibility only. Real-world predictive validity would require verified labels and testing on independent representative cohorts. Correlation and feature importance describe associations or model behavior. Class probabilities are estimates. Academic suggestions are general guidance for research and decision support.
 
