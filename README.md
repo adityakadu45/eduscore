@@ -57,6 +57,24 @@ CSV → validation and duplicate audit → six predictors and supplied classes �
 - **Student Performance Prediction** validates inputs, predicts a category and displays estimated probabilities and general study guidance.
 - **About Research Project** summarizes the research, preliminary findings, limitations and future scope.
 
+## Screenshots
+
+### Home dashboard
+
+![Home dashboard](assets/screenshots/home-dashboard.png)
+
+### Model training and evaluation
+
+![Model training and evaluation](assets/screenshots/model-evaluation.png)
+
+### Student performance prediction
+
+![Student performance prediction](assets/screenshots/performance-prediction.png)
+
+### About the research project
+
+![About the research project](assets/screenshots/about-research.png)
+
 ## Windows setup and launch
 
 Use Python 3.12 and extract the ZIP before running its launchers. From the project directory, run `setup.bat` once, then double-click `run_project.bat`. The default address is `http://localhost:8501`.
